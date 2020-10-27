@@ -1,0 +1,43 @@
+에러 종류
+속성 에러 : AttributeError: ‘module’ object has no attribute …
+에러 메시지
+Traceback (most recent call last):
+  File "<pyshell#18>", line 1, in <module>
+    t.foward(50)
+AttributeError: 'module' object has no attribute 'foward'
+발생 이유
+모듈의 함수나 변수를 잘못 입력했을 때 발생합니다.
+해결 방법
+함수나 변수의 철자와 대소문자가 올바른지 확인한 후 수정합니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
