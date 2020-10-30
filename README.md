@@ -128,5 +128,11 @@ for link in soup.find_all('a'):
 
 
 
-make_tfile.py , create_obj.py지금 쓰이지 않는다. 
+make_tfile.py , create_obj.py지금 쓰이지 않습니다. 
+***
+BeautifulSoup4의 원문 문서를 보고 싶으면 아래 링크를 클릭하세요. 
+[Google](https://www.crummy.com/software/BeautifulSoup/bs4/doc.ko/, "BeautifulSoup4 Documentation")
+
+
+
 
