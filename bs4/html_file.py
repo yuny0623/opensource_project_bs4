@@ -1,4 +1,11 @@
 def html_link_file(url_list,selected_list):
+    '''
+    메인 페이지에 걸려있는 모든 링크들을 html doc에 넣어서 링크집합을 만들어준다. 
+    찾고자하는 단어를 포함하는 링크는 SELECTED URL LIST 로 분류되어 하단에 따로 표시된다. 
+    내용은 image_make와 같다. 동일하게 동작한다. 다만 함수의 매개변수로 selected_list를 하나 더 받는다. 
+    show_page_include_word에서 단어를 포함하는 링크의 리스트를 반환했는데, 그 반환한 값이 
+    selected_list 매개변수에 들어오는 것이다. 
+    '''
 
     html_doc_top = '''
     <!DOCTYPE html>
