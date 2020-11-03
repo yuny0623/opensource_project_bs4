@@ -1,6 +1,6 @@
 BeautifulSoup4 
 ==============================
-기 BeautifulSoup4에 새로운 기능이 추가되었습니다. PYTHON으로 작성되었고, 2020.10.25 ~ 2020.10.30까지 작성되었습니다. 
+기존 BeautifulSoup4에 새로운 기능이 추가되었습니다. PYTHON으로 작성되었고, 2020.10.25 ~ 2020.10.30까지 작성되었습니다. (아직 진행중...)
 ------------------------------------------------------------------------------------------------------------------
 
 <img src="https://www.crummy.com/software/BeautifulSoup/bs4/doc.ko/6.1.jpg" width="40%" height="30%" title="BeautifulSoup4" alt="BeautifulSoup4"></img>
