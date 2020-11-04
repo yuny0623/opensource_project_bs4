@@ -199,4 +199,4 @@ BeautifulSoup4의 원문 문서를 보고 싶으면 아래 링크를 클릭
 soup객체로 받아온거 text화하고, split하는데, parser를 만들기로 했는데 parser가 아직 안만들어짐. (soup객체 받아온게 활용이 안되는 느낌?)
 그리고 set_of_word.py는 영어밖에 지원이 안됨. 
 
-
+#bs4 폴더에 있는거 보시면 됩니당 
