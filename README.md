@@ -36,48 +36,48 @@ BeautifulSoup4
 	해당 단어의 노출 빈도를 반환한다. 
 
 	search_deeper 함수 
-	메인 페이지로 지정된 URL에서 링크되어있는 모든 링크들에 대한 리스트를                requests 요청을 통해 soup객체로 변환시켜 처리한다. 이때 requests요청 개수가 	많아지거나 그     속도가 일정하고 빠르게 요청되면 페이지에서 requests요청을 거부	당한다. 그래서 리스트를 슬라이싱해서 create_list_soup파일에 있는 list_seperate함	수로 전달한다. 
+	메인 페이지로 지정된 URL에서 링크되어있는 모든 링크들에 대한 리스트를 requests 요청을 통해 soup객체로 변환시켜 처리한다. 이때 requests요청 개수가 많아지거나 그 속도가 일정하	     고 빠르게 요청되면 페이지에서 requests요청을 거부당한다. 그래서 리스트를 슬라이싱해서 create_list_soup파일에 있는 list_seperate함수로 전달한다. 
 
 	show_page_include_word 함수 
-	반드시 search_deeper 함수 호출 다음에 호출되어야한다. 그렇지 않으면 NULL값을 	리턴한다. 찾고싶은 단어를 포함하는 페이지의 url을 리스트로 반환한다.
+	반드시 search_deeper 함수 호출 다음에 호출되어야한다. 그렇지 않으면 NULL값을 리턴한다. 찾고싶은 단어를 포함하는 페이지의 url을 리스트로 반환한다.
 
 
 # 3. image_make.py 
 
 	image_take 함수 
-	원하는 페이지에서 이미지태그를 긁어서 리스트로 모아준다. 해당 리스트를 html 	doc에 순서대로 넣어주는데, 따로 html파일을 만들어서 생성해준다. 그 html파일을 	열면 페이지에 어떤     이미지가 링크되어있는지 모아볼 수 있다. 
+	원하는 페이지에서 이미지태그를 긁어서 리스트로 모아준다. 해당 리스트를 html doc에 순서대로 넣어주는데, 따로 html파일을 만들어서 생성해준다. 그 html파일을 	열면 페이지에 어떤     	   이미지가 링크되어있는지 모아볼 수 있다. 
 
 
 # 4. html_file.py
 
 	html_link_file 함수 
 	메인 페이지에 걸려있는 모든 링크들을 html doc에 넣어서 링크 모음을 만들어준	다. 
-	찾고자하는 단어를 포함하는 링크는 SELECTED URL LIST로 분류되어서 하단에 따	로 표시된다. 
-	동작하는 방식은 image_take 함수와 같다. 동일하게 작동한다. 다만 함수의 매개변	수로 selected_list를 하나 더 받는다. 
-	show_page_include_word에서 단어를 포함하는 링크의 리스트를 반환하는데, 그 반	환한 값이 selected_list 매개변수에 들어오는 것이다. 
+	찾고자하는 단어를 포함하는 링크는 SELECTED URL LIST로 분류되어서 하단에 따로 표시된다. 
+	동작하는 방식은 image_take 함수와 같다. 동일하게 작동한다. 다만 함수의 매개변수로 selected_list를 하나 더 받는다. 
+	show_page_include_word에서 단어를 포함하는 링크의 리스트를 반환하는데, 그 반환한 값이 selected_list 매개변수에 들어오는 것이다. 
 
 # 5. create_list_soup.py
 	list_seperate 함수 
-	requests 개수 제한을 해결하기 위한 함수. 반복문을 통해 전달받은 리스트의 요소	들(url 링크)을 하나씩 soup객체로 만들어준다. 
-	만들어진 soup객체를 하나씩 total_list 리스트에 더한다. 즉 soup객체가 요소로 들	어있는 리스트를 제공한다. 그리고 만들어진 total_list 리스트를 반환한다. 
-	대부분의 requests요청 거부 혹은 연결 끊어짐과 관련된 에러는 전부 다 이 함수	에서 발생한다. 그래서 실행될때마다 “url adding to list is finished” 가 터미널에 	출력되는데, 이 문     구가 지속적으로 출력됨을 확인할 수 없으면 제대로 동작하지 않	음을 알 수 있다.
+	requests 개수 제한을 해결하기 위한 함수. 반복문을 통해 전달받은 리스트의 요소들(url 링크)을 하나씩 soup객체로 만들어준다. 
+	만들어진 soup객체를 하나씩 total_list 리스트에 더한다. 즉 soup객체가 요소로 들어있는 리스트를 제공한다. 그리고 만들어진 total_list 리스트를 반환한다. 
+	대부분의 requests요청 거부 혹은 연결 끊어짐과 관련된 에러는 전부 다 이 함수	에서 발생한다. 그래서 실행될때마다 “url adding to list is finished” 가 터미널에 출력되는데, 이 문         구가 지속적으로 출력됨을 확인할 수 없으면 제대로 동작하지 않음을 알 수 있다.
 	
 
 # 6. collect_text.py
 
 	to_text 함수: 
-	url_from_out을 매개변수로 받은 뒤에 soup객체와 함께 페이지의 소스코드를 텍스	트로 만든 html_info를 제공받는다. 그후 soup객체를 가공해서 리스트로 만든 뒤 	soup_str_translate을     반환한다. 
+	url_from_out을 매개변수로 받은 뒤에 soup객체와 함께 페이지의 소스코드를 텍스트로 만든 html_info를 제공받는다. 그후 soup객체를 가공해서 리스트로 만든 뒤 		          	  soup_str_translate을 반환한다. 
 	url_list라는 리스트를 생성하는데 페이지에 존재하는 모든 링크를 리스트에 할당한	다. 
-	동시에 http를 포함하는 문자열 중에서 exe가 포함되지 않은 문자열을 url_list라는 	리스트로 반환한다. (실행파일일 경우에 soup객체로 분석할 수 없음.)
+	동시에 http를 포함하는 문자열 중에서 exe가 포함되지 않은 문자열을 url_list라는 리스트로 반환한다. (실행파일일 경우에 soup객체로 분석할 수 없음.)
 
 # 7. set_of_word.py 
 
 	make_set_of_word 함수:
 	https://relatedwords.io/ 에서는 연관단어에 대해 500개 정도의 단어를 제공한다. 
 	requests를 통해 해당 사이트에서 단어를 가져오고 리스트로 변환해서 할당한다. 
-	분석을 원하는 사이트가 있으면 make_set_of_word 함수에 매개변수로 링크를 전달	한다. 
-	전달된 링크는 또다시 requests를 통해 soup객체로 변환된다. (이후에 text로 바뀌	고, split()을 통해 사용할 수 있는 형태로 바귄다.)
-	최종적으로 카테고리에 있는 분류중에서 가장 많은 빈도 수를 기록한 카테고리	가 해당 페이지의 성향으로 판별된다. (예를 들면 opensource 관련 페이지, 혹은 	쇼핑 페이지, 블로그와 같     은 형식으로 분류된다.)
+	분석을 원하는 사이트가 있으면 make_set_of_word 함수에 매개변수로 링크를 전달한다. 
+	전달된 링크는 또다시 requests를 통해 soup객체로 변환된다. (이후에 text로 바뀌고, split()을 통해 사용할 수 있는 형태로 바귄다.)
+	최종적으로 카테고리에 있는 분류중에서 가장 많은 빈도 수를 기록한 카테고리가 해당 페이지의 성향으로 판별된다. (예를 들면 opensource 관련 페이지, 혹은 쇼핑 페이지, 블로그와 같     	  은 형식으로 분류된다.)
 
 ***
 다음은 z_text.py의 내용으로 bs4폴더 내에서 해당 함수를 사용할 수 방법을 알려주는 예제이다. 
