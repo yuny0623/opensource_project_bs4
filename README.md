@@ -16,8 +16,8 @@ BeautifulSoup4
 * set_of_word.py
 * url_to_tree.py  
 * z_test.py 
-*
-* 여기서 
+
+ 여기서 
 * make_tfile.py 
 * create_obj.py 
 * set_of_word_act.py
