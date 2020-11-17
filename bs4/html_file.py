@@ -23,7 +23,7 @@ def html_link_file(url_list,selected_list):
     </body>
     </html>'''
 
-    f = open("bs4\\html_file_in\\html_file.html",mode = "wt",encoding="utf-8")
+    f = open("bs4\\collected_info_in_here\\html_file.html",mode = "wt",encoding="utf-8")
     for i in range(len(url_list)):
         html_doc_middle +=('<a href = "'+url_list[i]+'">'+url_list[i]+"</a>"+"\n"+"<br>")
 
