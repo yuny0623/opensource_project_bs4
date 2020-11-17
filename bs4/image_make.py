@@ -42,7 +42,7 @@ def image_take(url):
 
     #warnings.filterwarnings(action = 'ignore')
     # open 내에 경로는 항상 백슬래쉬 두개로 써주기. -> \\ 안하면 경고표시뜸. 
-    f = open("bs4\\html_file_in\\img_file.html",mode = "wt",encoding="utf-8")
+    f = open("bs4\\collected_info_in_here\\image_file.html",mode = "wt",encoding="utf-8")
 
     for i in range(len(li)): #리스트의 길이만큼 반복한다. 즉 페이지에 있는 이미지태그의 개수만큼 반복 
         if li[i] == None:    #가끔 이미지태그에서 긁어온 값인데 값 자체가 None을 반환하는 경우가 있다. 

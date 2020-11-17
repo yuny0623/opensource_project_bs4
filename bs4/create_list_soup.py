@@ -34,7 +34,6 @@ def list_seperate(url_list):
         soup_text = soup.get_text()          
         total_list.append(soup_text)
 
-
     #type of soup is str
     #type of total_list is list
     print("url adding to list is finished")
