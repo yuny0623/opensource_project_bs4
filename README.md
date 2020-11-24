@@ -1,137 +1,125 @@
-BeautifulSoup4 
-==============================
-기존 BeautifulSoup4에 새로운 기능이 추가되었습니다. PYTHON으로 작성되습니다. 
-------------------------------------------------------------------------------------------------------------------
+bs4expand
+==========
 
-<img src="https://www.crummy.com/software/BeautifulSoup/bs4/doc.ko/6.1.jpg" width="40%" height="30%" title="BeautifulSoup4" alt="BeautifulSoup4"></img>
+뷰티풀수프4를 사용할떄 from bs4 import BeautifulSoup 이라고 선언한 뒤에 
+soup객체를 사용자가 원하는 방식으로 사용하는데 이제 저희는 그와  같이 from bs4 import bs4expand 를 선언해서 저희가 만든 기능을 사용할 
+수 있게 만들었습니다.  자세한 사용법과 내용은 뒤에 시현을 할때 직접 보여드리도록 하고, 
+우선은 기능과 각 함수의 작동방식 그리고 코드에 대해서 말씀드리도록 하겠습니다. 
+
+우선 저희가 추가한 기능은 py 파일로 bs4 폴더안에 위치하고 있습니다. 파일의 이름은 bs4expand.py이고 코드는 
+417줄입니다. 
+
+각 함수의 기능에 대해서 설명해드리겠습니다. 
+우선 set_word 함수입니다. 사용자가 원하는 단어를 입력받으면, word_to_find라는 변수에 할당해주는 초기화의 역할을
+수행합니다. 이후에 정의되는 함수들에서 word_to_find에 할당된 단어를 사용해서 작동한다고 보시면 됩니다. 
+***
+# count_word 함수
+count_word 함수는 말그대로 단어의 개수 빈도수가 얼마나 되는지 soup객체 내의 텍스트에서 탐색해서 그 빈도 수를
+알려주는 함수입니다. 
+
+# to_text함수
+다음은 to_text함수입니다. 이 함수는 저희가 작성한 bs4expand에서 가장 기본적인 실행을 담당하는 함수입니다. 
+우선 분석을 원하는 페이지의 url을 입력받은 뒤에 requests를 통해 soup객체로 바꾸어 줍니다. 그리고 이후에 
+연결가능한 링크만 따로 리스트에 할당하는 작업을 진행하고, (exe파일은 걸러내고)
+페이지에서 뽑아낸 문자열들에서 특수문자를 제거하는 과정이 진행됩니다. 이를 통해 사용가능한 문자열리스트와 함께, 
+페이지 내의 모든 앵커태그의 href(하이퍼텍스트 레퍼런스) 속성이 리스트로 반환됩니다. 그래서 
+bs4expand를 사용하고 싶은 사용자는 우선적으로 이 함수를 통해서 두개의 값을 반환받은 뒤에 그 반환받은 값을변수에 할당하는 방식으로 
+ 사용할 수 있습니다. 
+
+
+
+# serch_deeper함수
+다음은 serch_deeper함수입니다. 이 함수는 내용이 길어서 두 부분으로 나누어 놓았습니다. 
+우선 이함수는 분석하고자 하는 메인 페이지에 연결되어 있는 모든 페이지를 
+다시 리스트로 할당해서 각각 모든 페이지에 대한 soup객체를 리스트로 반환받는 함수입니다.  코드를 보시면
+여러개의 if문이 보이는데, requests 요청을 한번에 많은 수를 일정한 속도로 보내게 되면, 연결이 끊어진 현상이 발생했기 때문에
+리스트를 슬라이싱해서 작업을 진행했습니다. 연결 끊어짐 혹은 요청 거부의 이유는 무작위적인 크롤링을 막기 위해서
+웹서버 측에서 설정해두었기 때문인것으로 알고 있습니다. 
+
+# list_seperate 함수
+list_seperate 함수는 방금 말씀드린 search_deeper함수에서 받은 url 리스트를 모두 soup객체로 바꾸어주고 반환하는 함수입니다. 
+
+# show_page_include_word 함수
+다음은 show_page_include_word 함수입니다. 함수명에서 짐작할 수 있듯이 이 함수는 단어를 포함하는 url을 
+리스트로 반환해줍니다. 이 과정에서 단어의 존재여부를 확인하고, 해당 단어가 그 페이지에  존재하면 그 페이지의 
+url을 또다시 리스트에 할당하는 과정이 진행된다고 보시면 됩니다. 
+
+# html_link_file함수와 image_take 함수
+다음은 html_link_file함수와 image_take 함수입니다. 이 두 함수는 html 문서 양식을 사용하는데, 방금 말씀드린
+show_page_include_word 함수에서 얻어낸, 단어를 포함하는 url의 리스트와 그리고 연결되어있는 모든 리스트를 html
+문서 양식으로 직접 확인할 수 있습니다. 또한 image_take같은 경우는 해당 페이지에서 사용하고 있는 
+모든 이미지를 모아볼 수 있습니다. 따라서 사용자는 image_take 함수 를 통해 직접 모든 이미지의 url에 접근할 수 있기 때문에
+이미지를 다운받을 수도 있는 기능을 사용자가 추가로 손쉽게 구현해서 사용할 수 있습니다. 
+
+# make_set_of_word라는 함수
+다음은 마지막으로 make_set_of_word라는 함수입니다. 이 함수도 내용이 길어서 두 부분으로 나누어 놓았습니다. 
+이 함수는 url을 입력받으면 그 페이지가 어떤 페이지인지
+대략적인 분석을 내놓습니다. 15가지의 카테고리가 있는데, 그 카테고리에 해당되는 단어집합에서 빈도수를 측정하게 되는데, 
+가장 많은 점수를 얻은 카테고리가 그 페이지의 성향이 된다고 보시면 됩니다. 
+예를 들어https://www.oracle.com/index.html 라는 페이지를 분석하게 되면, 
+이에 대한 결과로 programming 이라는 결과를 얻게 되는데,  programming카테고리에 존재하는 대략 500개 정도의
+단어가 해당 사이트와 비교 되면서 가장 많은 점수를 획득했기 때문입니다. 
+
+#  news_crawler 함수
+다음은 news_crawler 입니다. 원하는 키워드 및 기간을 입력하면 그에 맞는 뉴스기사를 크롤링해주는 파일입니다.
+첫번째 main 함수는 시작하는 함수로 질문에 따른 값을 입력하면 해당 값들을 crawler 함수로 전달해주는 역할입니다.
+
+# crawler 함수
+두 번재는 crawler 함수입니다. 전반적인 크롤링을 하는 함수로 네이버 뉴스기사 페이지에 있는 html 태그를 이용하여 필요한 부분을
+크롤링합니다. 이때 정제화 함수를 활용하여 불필요한 내용을 삭제합니다. 노란색 박스는 해당 내용에 따라 어떤 태그에 있는지
+확인하면서 넣어주면 값을 불러올 수 있습니다.
+
+# contents_cleansing 함수
+세 번째는 contents_cleansing 함수로 태그를 통해 크롤링한 본문 요약분에서 불필요한 부분을 제거해주는 함수입니다.
+밑에 예시처럼 처음에 다른 태그가 섞여 더러운 부분을 함수를 통해 깔끔하게 정리된 모습을 확인할 수 있습니다.
+
+사용예시로는 해당 py 파일을 실행시켜 입력 형식에 맞게 입력해주면 실행이 끝나고 코드가 있는 위치에 엑셀파일이 생성됩니다.
+해당 엑셀파일로 들어가면 원하는 뉴스기사가 크롤링되어 정리된 것을 확인할 수 있습니다.
+
+저희가 만든 함수들은 대부분이 페이지 분석에 관한 내용입니다. 뷰티풀수프가 html태그와 관련된 강력한 분석기능을 제공하지만, 
+실제로 페이지자체를 분석하기 위해서는 soup객체를 활용한 추가적인 구현이 필요합니다. 그래서 이 때문에 
+페이지에 대한 구체적인 정보를 얻기에는 사용자가 직접적으로 더 코딩을 진행해야 했기에 번거롭습니다. 그래서 
+조금 더 유용한 기능들을 손쉽게 불러다 쓸 수 있게 만들었습니다. 
 
 ***
-# bs4에 추가된 함수 및 클래스 
-* collect_text.py  
-* create_list_soup.py 
-* create_obj.py  
-* html_file.py 
-* image_make.py  
-* make_tfile.py 
-* set_of_word.py
-* url_to_tree.py  
-* z_test.py 
-
- 여기서 
-* make_tfile.py 
-* create_obj.py 
-* set_of_word_act.py
-* 는 지금은 쓰이지 않습니다. 
+그리고 사용방법에 대해서 말씀드리면 
+기본적으로 bs4expand가 파이썬 기본 경로에 있는 폴더에 존재해야 합니다. 원본 bs4같은 경우는 pip istall을 통해 기본 경로 내에 위치시킬 수 있는데, 
+저희는 PYPI에 업로드 하지 않아서 우선은 깃허브에서 다운받으신 뒤에 PYTHON의 site_package 폴더 내에 위치시키면 바로 사용할 수 있습니다. 
+저희의 깃허브 주소는 https://github.com/yuny0623/opensource_project_bs4 입니다. 여기 들어가시면 
+해당 파일을 다운 받으실 수 있습니다. 여기서 알집을 해제하고, 이 해제한 폴더를 본인이 파이썬 을 설치한 위치에 가셔서
+Lib에 site-package를 들어가시고 거기에 압축해체한 파일을 위치시키면 됩니다. 
 ***
-# 1. z_text.py
-해당 함수들의 사용법에 대해 나와있습니다. 어떻게 호출하고 매개변수를 전달하는 지에 대한 사용법이 나와있습니다.
+우선 먼저 
+from bs4 import bs4expand as ex
+라고 선언을 하시면 됩니다. 이때 as ex는 쓰셔도 되고, 안쓰셔도 됩니다. 
+그리고 다음은 사용하는 짧은 예시입니다. 
+대부분의 함수의 반환값이 리스트의 형태이기 때문에 사용자는 이 함수들의 예제를 활용해서 더 나은 웹크롤러를 작성할 수 있습니다. 
 
-#2. url_to_tree.py
-외부에서 함수를 호출할 때, 이미 collect_text의 to_text함수를 통해 word list와 url list를 생성하였을때에 이 파일 내의 함수들을 사용할 수 있다. 그 값 중에서 url list를 이 파일의 함수가 매개변수로 받는다. 
-
-	set_word 함수: 
-	찾을 단어를 지정해주는 함수이다. 전역으로 선언된 변수에 값을 저장한다.
-
-	count_word 함수:
-	해당 단어의 노출 빈도를 반환한다. 
-
-	search_deeper 함수 
-	메인 페이지로 지정된 URL에서 링크되어있는 모든 링크들에 대한 리스트를 requests 요청을 통해 soup객체로 변환시켜 처리한다. 이때 requests요청 개수가 많아지거나 그 속도가 일정하	     고 빠르게 요청되면 페이지에서 requests요청을 거부당한다. 그래서 리스트를 슬라이싱해서 create_list_soup파일에 있는 list_seperate함수로 전달한다. 
-
-	show_page_include_word 함수 
-	반드시 search_deeper 함수 호출 다음에 호출되어야한다. 그렇지 않으면 NULL값을 리턴한다. 찾고싶은 단어를 포함하는 페이지의 url을 리스트로 반환한다.
-
-
-# 3. image_make.py 
-
-	image_take 함수 
-	원하는 페이지에서 이미지태그를 긁어서 리스트로 모아준다. 해당 리스트를 html doc에 순서대로 넣어주는데, 따로 html파일을 만들어서 생성해준다. 그 html파일을 	열면 페이지에 어떤     	   이미지가 링크되어있는지 모아볼 수 있다. 
-
-
-# 4. html_file.py
-
-	html_link_file 함수 
-	메인 페이지에 걸려있는 모든 링크들을 html doc에 넣어서 링크 모음을 만들어준	다. 
-	찾고자하는 단어를 포함하는 링크는 SELECTED URL LIST로 분류되어서 하단에 따로 표시된다. 
-	동작하는 방식은 image_take 함수와 같다. 동일하게 작동한다. 다만 함수의 매개변수로 selected_list를 하나 더 받는다. 
-	show_page_include_word에서 단어를 포함하는 링크의 리스트를 반환하는데, 그 반환한 값이 selected_list 매개변수에 들어오는 것이다. 
-
-# 5. create_list_soup.py
-	list_seperate 함수 
-	requests 개수 제한을 해결하기 위한 함수. 반복문을 통해 전달받은 리스트의 요소들(url 링크)을 하나씩 soup객체로 만들어준다. 
-	만들어진 soup객체를 하나씩 total_list 리스트에 더한다. 즉 soup객체가 요소로 들어있는 리스트를 제공한다. 그리고 만들어진 total_list 리스트를 반환한다. 
-	대부분의 requests요청 거부 혹은 연결 끊어짐과 관련된 에러는 전부 다 이 함수	에서 발생한다. 그래서 실행될때마다 “url adding to list is finished” 가 터미널에 출력되는데, 이 문         구가 지속적으로 출력됨을 확인할 수 없으면 제대로 동작하지 않음을 알 수 있다.
-	
-
-# 6. collect_text.py
-
-	to_text 함수: 
-	url_from_out을 매개변수로 받은 뒤에 soup객체와 함께 페이지의 소스코드를 텍스트로 만든 html_info를 제공받는다. 그후 soup객체를 가공해서 리스트로 만든 뒤 		          	  soup_str_translate을 반환한다. 
-	url_list라는 리스트를 생성하는데 페이지에 존재하는 모든 링크를 리스트에 할당한	다. 
-	동시에 http를 포함하는 문자열 중에서 exe가 포함되지 않은 문자열을 url_list라는 리스트로 반환한다. (실행파일일 경우에 soup객체로 분석할 수 없음.)
-
-# 7. set_of_word.py 
-
-	make_set_of_word 함수:
-	https://relatedwords.io/ 에서는 연관단어에 대해 500개 정도의 단어를 제공한다. 
-	requests를 통해 해당 사이트에서 단어를 가져오고 리스트로 변환해서 할당한다. 
-	분석을 원하는 사이트가 있으면 make_set_of_word 함수에 매개변수로 링크를 전달한다. 
-	전달된 링크는 또다시 requests를 통해 soup객체로 변환된다. (이후에 text로 바뀌고, split()을 통해 사용할 수 있는 형태로 바귄다.)
-	최종적으로 카테고리에 있는 분류중에서 가장 많은 빈도 수를 기록한 카테고리가 해당 페이지의 성향으로 판별된다. (예를 들면 opensource 관련 페이지, 혹은 쇼핑 페이지, 블로그와 같     	  은 형식으로 분류된다.)
-
-***
-다음은 z_text.py의 내용으로 bs4폴더 내에서 해당 함수를 사용할 수 방법을 알려주는 예제이다. 
 ```
-import requests
-from bs4 import BeautifulSoup
-from collect_text import to_text
-import url_to_tree
-import html_file
-import image_make
-
-x,y = to_text("https://github.com/") #크롤링하고 싶은 메인 페이지의 url을 넘겨준다. 
-# print(x) x에는 word list가 반환된다. 문자열 집합이다. (띄어쓰기로 구분된 문자집합)
-# print(y) y에는 메인페이지에 걸린 모든 링크에 대한 집합이 리스트로 반환된다. 
-url_to_tree.set_word("python")  #세고 싶은 단어를 입력한다. 
-n = url_to_tree.count_word(x)  #단어의 개수가 반환된다.
-print(n)                        #단어의 개수를 출력한다.  
-print(len(y))                  #url list의 길이 출력 
-li = url_to_tree.search_deeper(y)  #search_deeper는 해당페이지에 연결된 모든 링크에 관한 soup객체를 반환한다. 
-url_contain_word = url_to_tree.show_page_include_word(y) #show_page_include_word는 해당단어를 포함하는 페이지를 리스트로 반환해준다. 
-print(url_contain_word)          #단어를 포함하는 url을 리스트로 출력함. 
-html_file.html_link_file(y,url_contain_word) # 모든 url list를 y로 넘기고 선정된 url list를 url_contain_word 로 넘긴다. 
-image_make.image_take("https://github.com/") # 해당 페이지의 이미지를 html문서 상에서 모아볼 수 있게 해줍니다. 
-```
-
-***
-다음은 make_set_of_word에 관한 사용법이 나와있습니다. 
-```
-import set_of_word
-#set_of_word의 작동법에 대해 나와있습니다. 
-s = set_of_word.make_set_of_word("https://opensource.com/") #분석을 원하는 사이트의 링크를 전달합니다. 
-#s를 반환받습니다. s는 사이트에 대한 짧은 분석입니다. 
+x,y = ex.to_text("https://github.com/")
+ex.set_word("python")
+n = ex.count_word(x)
+print(n)
+print(len(y))
+li = ex.search_deeper(y)
+url_contain_word =ex.show_page_include_word(y) 
+print(url_contain_word)
+ex.html_link_file(y,url_contain_word) 
+ex.image_take("https://github.com/")
+s = ex.make_set_of_word("https://www.oracle.com/index.html")
 print(s)
 ```
-***
-
-# 문제점 또는 개선점 분석
-> soup객체로 받아온 객체를 text화하고, split 까지만 하고, 그 이후에는 잘 활용되지 않는다. 즉 parser를 만들기로 했는데 parser가 아직 만들어지지 않았다. 
-
-> set_of_word.py함수가 영어밖에 지원이 안된다. 개선점으로는 한글도 지원할 수 있게 바꾸는 것이다.
-
-> 전반적으로 함수명이나 변수명이 부적절하다. 실제 동작과는 어울리지 않는 함수명도 있고, 어울리지 않는 변수명도 존재한다. 그것들을 잘 어울리게 다시 명칭해야한다. 
-
-image_take 함수 
-> 중복되는 이미지가 있다. . 이미지의 사이즈 조절이 안되서 html doc에 너무 크게 나온다. 중복되는 이미지가 없도록 만들고, 이미지를 테이블로 볼 수 있게 처리한다. 
-
-list_seperate 함수
-> 보통 import 에러가 아닌 이상 url adding to list is finished가 출력되는 시점에 대부분의 에러가 발생했다. 이 부분에 예외처리가 되지 않았다. 예외처리를 해줄 수 있도록 해야한다.
-> requests요청을 한번에 보낼 수 있는 방법을 새로 만들어야 한다. url 리스트의 크기와 상관없이 큰 크기의 리스트를 요청해도 거부당하거나 연결끊어짐 현상이 발생하지 않는 방법을 찾아야함. 
-
-make_set_of_word 함수 
-> 지금은 카테고리가 15개밖에 없다. 좀 더 늘려서 더 구체적인 분석을 할 수 있게 만들어야한다. 페이지를 분석해서 카테고리 분류 중 가장 높은 숫자를 기록한 카테고리가 그 페이지의 성향이라> 고 정의하는데, 이런식으로 한가지의 카테고리로 분류하기보다는 백분율로 계산해서 해당 페이지를 성향별로 몇 퍼센트를 차지하는지 보여줄 수 있게 하는 것이 좋을 것 가다.
-> 이 함수는 https://relatedwords.io/ 에 종속적이다. 즉 이 사이트의 방식이 바뀌거나 사이트가 운영하지 않게 되면 더 이상 동작할 수 없다. 그렇기 때문에, 카테고리에 따른 연관 단어 집합> > 이 따로 독립적으로 필요하다. 독립적인 데이터셋이 있어야 이 함수가 독립적으로 작동할 수 있다. 
 
 
+우선 to_text에서 결과값인 리스트 두개를 반환받고,. 
+set_word에서는 원하는 단어를 초기화시킵니다. count_word로 단어의 빈도수를 반환받을 수 있습니다. 
+그리고 serch_deeper함수를 호출하고, 그반환값을 li에 전달받는데, 이 리스트는 사용자가 다양하게 사용할 수 있습니다. 
 
+show_page_include_word함수에서 리턴된 반환값을 받은 url_contain_word라는 변수가 출력된 것을 보실 수 있는데, 
+해당 단어가 포함된 모든 url이 할당된것을 확인할 수 있습니다. 
 
+ex.html_link_file(y,url_contain_word) 
+ex.image_take("https://github.com/") 함수를 실행함으로써 collected_info_in_here라는 폴더에 파일이 생성되는 것을 확인할 수 있습니다. 
+해당 파일을 클릭해보면 다음과 같은 결과를 확인할 수 있습니다.  이미지와 링크를 확인할 수 있습니다. 
+
+마지막으로 make_set_of_word를 통해 간단한 분석이 s에 할당되는 것을 확인할 수 있습니다. 
